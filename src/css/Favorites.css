@@ -12,6 +12,18 @@
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
+
+/* Movies grid with fixed width to prevent single cards from stretching */
+
+.movies-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 320px));
+    gap: 20px;
+    justify-content: flex-start;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
 .favorites-empty {
     text-align: center;
     padding: 4rem 2rem;
@@ -31,6 +43,53 @@
     color: #999;
     font-size: 1.2rem;
     line-height: 1.6;
+}
+
+
+/* Responsive design for different screen sizes */
+
+@media (max-width: 768px) {
+    .movies-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 280px));
+        gap: 15px;
+        justify-content: center;
+    }
+    .favorites {
+        padding: 1.5rem;
+    }
+    .favorites h2 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .movies-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 200px));
+        gap: 10px;
+    }
+    .favorites {
+        padding: 1rem;
+    }
+    .favorites h2 {
+        font-size: 1.5rem;
+    }
+    .favorites-empty {
+        padding: 3rem 1.5rem;
+    }
+    .favorites-empty h2 {
+        font-size: 1.5rem;
+    }
+    .favorites-empty p {
+        font-size: 1rem;
+    }
+}
+
+
+/* Ensure movie cards don't stretch beyond their intended size */
+
+.movies-grid .movie-card {
+    max-width: 320px;
+    width: 100%;
 }
 
 

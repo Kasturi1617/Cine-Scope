@@ -18,7 +18,6 @@ function MovieDetail({ movie }) {
         }
     };
 
-    // Helper function to get star rating
     const renderStars = (rating) => {
         const stars = Math.round(rating / 2); // Convert 10-point to 5-point scale
         return '★'.repeat(stars) + '☆'.repeat(5 - stars);
@@ -27,7 +26,6 @@ function MovieDetail({ movie }) {
     return (
         <div className="movie-detail">
             <div className="movie-hero">
-                {/* Background image */}
                 <div
                     className="movie-background"
                     style={{
@@ -35,18 +33,11 @@ function MovieDetail({ movie }) {
                     }}
                 ></div>
 
-                {/* Gradient overlay */}
                 <div className="movie-overlay-bg"></div>
-
-                {/* Content layer */}
                 <div className="movie-content">
-                    {/* Logo/Brand - top left */}
-
-                    {/* Movie Title - main position */}
                     <div className="movie-title-section">
                         <h1 className="movie-title">{movie.title}</h1>
 
-                        {/* Rating and Meta Info */}
                         <div className="movie-meta">
                             <div className="rating-section">
                                 <span className="stars">{renderStars(movie.vote_average)}</span>
@@ -56,10 +47,8 @@ function MovieDetail({ movie }) {
                             <span className="runtime">{movie.runtime ? `${movie.runtime}mins` : '2hr 22mins'}</span>
                         </div>
 
-                        {/* Description */}
                         <p className="movie-description">{movie.overview}</p>
 
-                        {/* Additional Info */}
                         <div className="movie-info">
                             <div className="info-row">
                                 <span className="info-label">Starring:</span>
@@ -82,7 +71,6 @@ function MovieDetail({ movie }) {
                         </div>
                     </div>
 
-                    {/* Watch Trailer Button - right side */}
                     <div className="trailer-section">
                         {trailer && (
                             <button className="watch-trailer-button" onClick={handlePlayClick}>
@@ -94,7 +82,6 @@ function MovieDetail({ movie }) {
                 </div>
             </div>
 
-            {/* Cast section */}
             <h3 className="cast-title">Top Cast</h3>
             <ul className="cast-list">
                 {movie.credits?.cast.slice(0, 5).map((actor) => (
