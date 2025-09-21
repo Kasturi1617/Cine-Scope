@@ -10,6 +10,7 @@ function MovieDetailsPage() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
+        window.scrollTo(0, 0); // Page should scroll to top at loading time
         const loadMovieDetails = async () => {
             try {
                 const popularMovies = await getMovieDetails(id);
