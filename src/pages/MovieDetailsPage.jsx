@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getMovieDetails } from "../services/api";
 import MovieDetail from "../components/MovieDetail";
+import { ScrollRestoration } from "react-router-dom";
 
 function MovieDetailsPage() {
     const { id } = useParams();
@@ -10,6 +11,7 @@ function MovieDetailsPage() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
+        window.scrollTo(0, 0); // Page should scroll to top at loading time
         const loadMovieDetails = async () => {
             try {
                 const popularMovies = await getMovieDetails(id);
