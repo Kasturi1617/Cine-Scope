@@ -4,7 +4,8 @@ import MovieCard from "../components/MovieCard";
 
 function Favorite() {
     const { favorites } = useMovieContext();
-    if (favorites) {
+    console.log(favorites);
+    if (favorites && favorites.length > 0) {
         return (
             <div className="favorites">
                 <div className="movies-grid">

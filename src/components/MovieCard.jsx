@@ -12,6 +12,7 @@ function MovieCard({ movie }) {
 
     function handleFavoriteClick(e) {
         e.preventDefault();
+        e.stopPropagation(); // to stop propagating the event to its parent component
         if(favorite) removeFromFavorites(movie.id);
         else addToFavorites(movie);
     }
