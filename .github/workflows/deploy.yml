@@ -3,8 +3,11 @@ name: Deploy Vite React to GitHub Pages
 on:
   push:
     branches:
-      - '**'  # Trigger on any branch
-  workflow_dispatch:  # allow manual trigger too
+      - '**'
+  workflow_dispatch:
+
+permissions:
+  contents: write   # <-- allow pushing commits
 
 jobs:
   build-and-deploy:
@@ -23,7 +26,7 @@ jobs:
         run: npm install
 
       - name: Build Vite project
-        run: npm run build  # Vite builds into `dist` folder
+        run: npm run build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
