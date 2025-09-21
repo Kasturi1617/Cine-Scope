@@ -1,9 +1,9 @@
-name: Deploy to GitHub Pages
+name: Deploy Vite React to GitHub Pages
 
 on:
   push:
     branches:
-      - '**'  # Run this workflow whenever you push to main
+      - '**'  # Trigger on any branch
 
 jobs:
   build-and-deploy:
@@ -21,11 +21,11 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build project
-        run: npm run build
+      - name: Build Vite project
+        run: npm run build  # Vite builds into `dist` folder
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v7
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build  # change to ./dist if your framework outputs dist
+          publish_dir: ./dist
