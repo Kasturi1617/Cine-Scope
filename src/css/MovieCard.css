@@ -13,7 +13,7 @@
 /* Pop & elongate on hover */
 
 .movie-card:hover {
-    transform: scale(1.05);
+    transform: scale(2);
     height: 380px;
     /* elongate height on hover */
     z-index: 10;

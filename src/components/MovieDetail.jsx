@@ -1,8 +1,12 @@
 import React from "react";
 import "../css/MovieDetail.css";
+import { useMovieContext } from "../contexts/MovieContext";
 
 function MovieDetail({ movie }) {
     if (!movie) return <div>Loading...</div>;
+
+    const { isFavorite, addToFavorites, removeFromFavorites } = useMovieContext();
+    const favorite = isFavorite(movie.id);
 
     const trailer = movie?.videos?.results?.find(
         (vid) => vid.type === "Trailer" && vid.site === "YouTube"
@@ -23,6 +27,13 @@ function MovieDetail({ movie }) {
         return '★'.repeat(stars) + '☆'.repeat(5 - stars);
     };
 
+    function handleFavoriteClick(e) {
+        e.preventDefault();
+        e.stopPropagation(); // to stop propagating the event to its parent component
+        if (favorite) removeFromFavorites(movie.id);
+        else addToFavorites(movie);
+    }
+
     return (
         <div className="movie-detail">
             <div className="movie-hero">
@@ -37,6 +48,11 @@ function MovieDetail({ movie }) {
                 <div className="movie-content">
                     <div className="movie-title-section">
                         <h1 className="movie-title">{movie.title}</h1>
+                        <div className="movie-overlay">
+                            <button className={`favorite-btn-inside ${favorite ? "active" : ""}`} onClick={handleFavoriteClick}>
+                                ♥
+                            </button>
+                        </div>
 
                         <div className="movie-meta">
                             <div className="rating-section">

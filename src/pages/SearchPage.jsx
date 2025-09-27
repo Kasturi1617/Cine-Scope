@@ -1,24 +1,26 @@
 import MovieCard from "../components/MovieCard"
+import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react"
 import "../css/Home.css";
-import { getPopularMovies, searchMovies } from "../services/api";
+import "../services/api";
+import { searchMovies } from "../services/api";
 import { useNavigate } from "react-router-dom";
 
-function Home() {
+function SearchPage() {
     const [searchQuery, setSearchQuery] = useState("");
+    const { query } = useParams();
     const [movies, setMovies] = useState([]);
-    const [popularMovies, setPopularMovies] = useState([]); // keep a copy of popular movies
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [isSearching, setIsSearching] = useState(false); // track if user is searching
     const navigate = useNavigate();
 
+
     useEffect(() => {
-        const loadPopularMovies = async () => {
+        const loadSearchMovies = async () => {
+            setSearchQuery(query);
             try {
-                const popularMovies = await getPopularMovies();
-                setMovies(popularMovies);
-                setPopularMovies(popularMovies); // save popular movies separately
+                const movieList = await searchMovies(query);
+                setMovies(movieList);
             } catch (err) {
                 console.log(err);
                 setError("Failed to load movies :(");
@@ -26,15 +28,15 @@ function Home() {
                 setLoading(false);
             }
         }
-        loadPopularMovies();
-    }, []); // Empty dependency array means, run once when rendered on screen
+        loadSearchMovies();
+    }, [query]); // Empty dependency array means, run once when rendered on screen
+
 
     const handleSearch = async (event) => {
         event.preventDefault(); // stop the form from refreshing the page
         if (!searchQuery.trim()) return; // trim removes all leading and trailing spaces
         setLoading(true);
-        navigate(`/search/${searchQuery}`)
-        setIsSearching(true);
+        navigate(`/search/${searchQuery}`);
     }
 
     function handleSearchChange(event) {
@@ -42,22 +44,11 @@ function Home() {
         setSearchQuery(value);
     }
 
-    function handleClearSearch() {
-        setSearchQuery("");
-        setMovies(popularMovies); // restore popular movies
-        setIsSearching(false);
-    }
 
     return (
         <div className="home">
-            <form onSubmit={handleSearch} className="search-form">
-                <input
-                    type="text"
-                    placeholder="Search for movies"
-                    className="search-input"
-                    value={searchQuery}
-                    onChange={handleSearchChange}
-                />
+            <form className="search-form" onSubmit={handleSearch}>
+                <input type="text" placeholder="Search for movies" className="search-input" value={searchQuery} onChange={handleSearchChange} />
                 <button type="submit" className="search-button">Search</button>
             </form>
 
@@ -65,6 +56,7 @@ function Home() {
             {loading ? <div className="loading">Loading...</div> :
                 <div className="movies-grid">
                     {movies.map((movie) => (
+                        movie.title.toLowerCase().startsWith(query.toLowerCase()) &&
                         <MovieCard movie={movie} key={movie.id} />
                     ))}
                 </div>}
@@ -72,4 +64,4 @@ function Home() {
     );
 }
 
-export default Home;
+export default SearchPage;
