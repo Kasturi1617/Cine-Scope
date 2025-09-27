@@ -283,3 +283,22 @@
         justify-content: flex-start;
     }
 }
+
+.favorite-btn-inside {
+    background: rgba(0, 0, 0, 0.5);
+    /* optional semi-transparent bg */
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: white;
+    text-shadow: 1px 1px 3px black;
+    padding: 5px 8px;
+    border-radius: 50%;
+    margin-right: 50px;
+    margin-top: 20px;
+    width: 50px;
+}
+
+.favorite-btn-inside.active {
+    color: red;
+}
