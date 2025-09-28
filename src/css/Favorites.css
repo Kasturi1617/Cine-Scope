@@ -19,7 +19,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 320px));
     gap: 20px;
-    justify-content: flex-start;
+    justify-content: center;
     max-width: 1400px;
     margin: 0 auto;
 }
